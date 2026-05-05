@@ -1,0 +1,81 @@
+# LLMDevFramework
+
+<system_context>
+LLM 開發框架與規範庫，存放各語言/技術棧的 Claude Code 開發守則。
+子目錄依技術分類（OracleSQL、React & Typescript），每個子目錄可有自己的 CLAUDE.md。
+</system_context>
+
+<critical_notes>
+- 規範文件用 terse but complete 風格，100–200 行為上限
+- 規則用字：MUST / NEVER / ALWAYS
+- DRY：用 file reference / 巢狀 CLAUDE.md，不要重複內容
+- 預設用繁體中文，technical terms 保留英文
+</critical_notes>
+
+<file_map>
+OracleSQL/              - Oracle SQL 開發規範與 pattern
+React & Typescript/     - React + TypeScript 前端開發規範
+.Net Web API/           - ASP.NET Core Web API 後端開發規範
+YAML Review/            - YAML review 規範（K8s、Helm、ArgoCD、GitHub Actions、Docker Compose）
+sdd/                    - Spec-Driven Development 方法論 + slash command + 規格模板
+</file_map>
+
+<paved_path>
+- 新增技術領域 → 建立子目錄 + 子目錄內 CLAUDE.md
+- 子 CLAUDE.md 只放該技術專屬規則，通用規則留在本檔
+- 範例 / pattern 用 search term 指引位置，不直接貼大段 code
+</paved_path>
+
+<patterns>
+規範文件結構（每個子目錄 CLAUDE.md 建議）：
+- system_context  - 技術棧用途
+- critical_notes  - 硬性規則
+- file_map        - 子目錄結構
+- paved_path      - 標準作法
+- patterns        - 常見 pattern + 位置
+- common_tasks    - 任務指引
+- fatal_implications - 絕對禁止
+</patterns>
+
+<workflow>
+## 新功能開發流程（SDD - Spec-Driven Development）
+
+所有非 trivial 新功能 MUST 走這條路徑（細節見 `sdd/CLAUDE.md`）：
+
+1. **Plan mode 討論**：抓出方向 + 技術選型
+2. **`/sdd` 釐清**：Claude 問三題（一句話描述、互動模組、成功標準）
+3. **產出規格文件**：存到當前專案 `specs/YYYY-MM-DD-<slug>.md`
+4. **空殼實作（stub）**：先把 interface / 函式簽名 / 路由建好，邏輯留 `TODO`
+5. **逐段實作 + 對照規格驗收**
+
+## 維護規範流程
+
+1. 發現新 best practice / anti-pattern
+2. 判斷屬於哪個技術領域 → 寫進對應子 CLAUDE.md
+3. 跨領域通用規則 → 寫進本檔
+4. 過時內容直接刪除，不留 deprecated 註解
+</workflow>
+
+<common_tasks>
+- 新增 pattern → 找對應子目錄 CLAUDE.md 的 patterns 區塊
+- 新增技術棧 → 建子目錄 + CLAUDE.md（複製本檔結構）
+- 引用範例 code → 用 `path/to/file.ts`, search:`symbolName`
+</common_tasks>
+
+<example>
+file reference 寫法：
+- Custom hook → `React & Typescript/hooks/useX.ts`, search:`useDeferredValue`
+- PL/SQL package → `OracleSQL/packages/PKG_X.sql`, search:`PROCEDURE foo`
+- Controller pattern → `.Net Web API/Controllers/XController.cs`, search:`HttpGet`
+</example>
+
+<hatch>
+- 規則衝突時 → 子目錄 CLAUDE.md 優先於本檔
+- 特殊專案需求 → 在該專案 root 另開 CLAUDE.md 覆寫
+</hatch>
+
+<fatal_implications>
+- NEVER 把 secrets / 連線字串寫進規範文件
+- NEVER 在規範裡貼整份檔案內容（用 search term 引用）
+- NEVER 讓單一 CLAUDE.md 超過 200 行
+</fatal_implications>
