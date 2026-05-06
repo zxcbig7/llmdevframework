@@ -34,6 +34,14 @@
       "dst": "commands/prompt-improve.md",
       "transform": "substitute-framework-path",
       "description": "/prompt-improve — Prompt 5-step 改造器"
+    },
+    {
+      "id": "cmd-cmd-dev",
+      "type": "command",
+      "src": "CMD Developer/cmd-dev-command.md",
+      "dst": "commands/cmd-dev.md",
+      "transform": "substitute-framework-path",
+      "description": "/cmd-dev — Windows .bat 寫 / review / debug 三合一"
     }
   ]
 }
