@@ -18,6 +18,7 @@ LLM 開發框架與規範庫，存放各語言/技術棧的 Claude Code 開發�
 
 <file_map>
 prompt-principles/      - 元規範：寫 CLAUDE.md / slash command 的 12 prompt 技巧（所有新文件先看這）
+Prompt Builder/         - 寫好 prompt 的工具箱（10 個框架 + `/prompt-improve` 指令 + 模板）
 OracleSQL/              - Oracle SQL 開發規範與 pattern
 React & Typescript/     - React + TypeScript 前端開發規範
 .Net Web API/           - ASP.NET Core Web API 後端開發規範

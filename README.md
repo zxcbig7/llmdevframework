@@ -23,12 +23,13 @@
 $base = "C:\Users\zxcbi\Desktop\MyDevWeb\LLMDevFramework"
 $dst  = "C:\Users\zxcbi\.claude\commands"
 
-Copy-Item "$base\sdd\sdd-command.md"                              "$dst\sdd.md"          -Force
-Copy-Item "$base\YAML Review\k8s-review-command.md"               "$dst\k8s-review.md"   -Force
-Copy-Item "$base\OracleSQL\proc-analysis\proc-analyze-command.md" "$dst\proc-analyze.md" -Force
+Copy-Item "$base\sdd\sdd-command.md"                              "$dst\sdd.md"             -Force
+Copy-Item "$base\YAML Review\k8s-review-command.md"               "$dst\k8s-review.md"      -Force
+Copy-Item "$base\OracleSQL\proc-analysis\proc-analyze-command.md" "$dst\proc-analyze.md"    -Force
+Copy-Item "$base\Prompt Builder\prompt-improve-command.md"        "$dst\prompt-improve.md"  -Force
 ```
 
-之後任何專案 `/sdd`、`/k8s-review`、`/proc-analyze` 都可用。
+之後任何專案 `/sdd`、`/k8s-review`、`/proc-analyze`、`/prompt-improve` 都可用。
 
 ---
 
@@ -42,6 +43,18 @@ LLMDevFramework/
 │
 ├── prompt-principles/            # ★ 元規範（寫 CLAUDE.md / command 前先讀）
 │   └── CLAUDE.md                 # Anthropic 12 prompt 技巧 + 4 原則 + self-check
+│
+├── Prompt Builder/               # ★ 寫好 prompt 的工具箱（給「不知怎麼問 AI」的時候用）
+│   ├── CLAUDE.md                 # 5 品質維度 + 4 大錯誤 + 框架選擇樹
+│   ├── frameworks-cheatsheet.md  # 10 個主流框架對照（CO-STAR / RISEN / TIDD-EC...）
+│   ├── prompt-improve-command.md # /prompt-improve slash command
+│   └── templates/                # 即填即用模板
+│       ├── universal-4-part.md
+│       ├── co-star.md
+│       ├── risen.md
+│       ├── tidd-ec.md
+│       ├── rtf.md
+│       └── rise-ix.md
 │
 ├── sdd/                          # Spec-Driven Development 工作流
 │   ├── CLAUDE.md                 # SDD 方法論
@@ -74,6 +87,20 @@ LLMDevFramework/
 ---
 
 ## 內建工具
+
+### `/prompt-improve <模糊草稿>`
+
+把模糊的 prompt 草稿改造成結構化、AI 看得懂的版本。給「題給 AI 的要求不夠好」時用。
+
+**5 step 流程**：
+
+1. 5 維度品質診斷（clarity / specificity / context / completeness / structure）
+2. 一次問 3–5 個釐清問題
+3. 從 10 個框架選一個（CO-STAR / RISEN / TIDD-EC / RTF / CoT...）並給選用理由
+4. 用 XML tags 重寫，限 80–200 字
+5. 列改動對照表 + 預估效果
+
+**支援框架**：詳見 [`Prompt Builder/frameworks-cheatsheet.md`](./Prompt Builder/frameworks-cheatsheet.md)。
 
 ### `/sdd <一句話描述>`
 
