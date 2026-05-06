@@ -1,0 +1,39 @@
+{
+  "$schema": "./deploy.config.schema.json",
+  "version": "1.0.0",
+  "description": "LLMDevFramework deploy manifest. install.ps1 / update.ps1 / uninstall.ps1 read this as single source of truth.",
+  "items": [
+    {
+      "id": "cmd-sdd",
+      "type": "command",
+      "src": "sdd/sdd-command.md",
+      "dst": "commands/sdd.md",
+      "transform": "substitute-framework-path",
+      "description": "/sdd — Spec-Driven Development 啟動器"
+    },
+    {
+      "id": "cmd-k8s-review",
+      "type": "command",
+      "src": "YAML Review/k8s-review-command.md",
+      "dst": "commands/k8s-review.md",
+      "transform": "substitute-framework-path",
+      "description": "/k8s-review — K8s YAML 靜態 audit（無 kubectl 環境）"
+    },
+    {
+      "id": "cmd-proc-analyze",
+      "type": "command",
+      "src": "OracleSQL/proc-analysis/proc-analyze-command.md",
+      "dst": "commands/proc-analyze.md",
+      "transform": "substitute-framework-path",
+      "description": "/proc-analyze — Oracle PL/SQL procedure 多 pass 分析"
+    },
+    {
+      "id": "cmd-prompt-improve",
+      "type": "command",
+      "src": "Prompt Builder/prompt-improve-command.md",
+      "dst": "commands/prompt-improve.md",
+      "transform": "substitute-framework-path",
+      "description": "/prompt-improve — Prompt 5-step 改造器"
+    }
+  ]
+}

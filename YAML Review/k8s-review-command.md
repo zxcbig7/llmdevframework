@@ -25,8 +25,8 @@ argument-hint: [檔案路徑或資料夾]
 <step-1-load-knowledge>
 ## Step 1：載入知識來源（依序，找不到就略過）
 
-1. Read `LLMDevFramework/YAML Review/CLAUDE.md` — 通用 YAML 規範
-2. Glob `LLMDevFramework/YAML Review/troubleshooting/*.md` 並 Read 每份 — 公司內部坑經驗庫
+1. Read `{{FRAMEWORK_PATH}}/YAML Review/CLAUDE.md` — 通用 YAML 規範
+2. Glob `{{FRAMEWORK_PATH}}/YAML Review/troubleshooting/*.md` 並 Read 每份 — 公司內部坑經驗庫
 3. 解析 `$ARGUMENTS`：單檔直接 Read；資料夾 / glob → 展開後逐檔 Read
 
 > **Long-text 處理原則**：先讀完所有檔案 → 內部包成 `<document file="...">` 結構 → 再做 Step 2 以後的分析（不要邊讀邊分析）。

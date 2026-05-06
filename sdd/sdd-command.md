@@ -16,7 +16,7 @@ argument-hint: [一句話描述功能]
 <execution-plan>
 **執行前先做**（CoT 觸發）：
 
-1. **Read** `LLMDevFramework/sdd/CLAUDE.md` 與 `LLMDevFramework/sdd/spec-template.md` 取得方法論與模板
+1. **Read** `{{FRAMEWORK_PATH}}/sdd/CLAUDE.md` 與 `{{FRAMEWORK_PATH}}/sdd/spec-template.md` 取得方法論與模板
 2. **列出**接下來要走的 4 個 step（給使用者看）並確認 `$ARGUMENTS` 是否夠清楚
 3. 再開始 Step 1
 </execution-plan>

@@ -17,19 +17,29 @@
 參考：`C:/Users/zxcbi/Desktop/MyDevWeb/LLMDevFramework/React & Typescript/CLAUDE.md`
 ```
 
-### 啟用 slash command
+### 啟用 slash command（一鍵 deploy）
 
 ```powershell
-$base = "C:\Users\zxcbi\Desktop\MyDevWeb\LLMDevFramework"
-$dst  = "C:\Users\zxcbi\.claude\commands"
-
-Copy-Item "$base\sdd\sdd-command.md"                              "$dst\sdd.md"             -Force
-Copy-Item "$base\YAML Review\k8s-review-command.md"               "$dst\k8s-review.md"      -Force
-Copy-Item "$base\OracleSQL\proc-analysis\proc-analyze-command.md" "$dst\proc-analyze.md"    -Force
-Copy-Item "$base\Prompt Builder\prompt-improve-command.md"        "$dst\prompt-improve.md"  -Force
+cd C:\Users\zxcbi\Desktop\MyDevWeb\LLMDevFramework\scripts
+.\install.ps1
 ```
 
-之後任何專案 `/sdd`、`/k8s-review`、`/proc-analyze`、`/prompt-improve` 都可用。
+完成後**任何專案** `/sdd`、`/k8s-review`、`/proc-analyze`、`/prompt-improve` 都能用。
+
+### 拉框架最新修改
+
+```powershell
+.\update.ps1                  # 安全更新（你改過的 dest 跳過）
+.\update.ps1 -Force           # 強制覆蓋
+```
+
+### 移除
+
+```powershell
+.\uninstall.ps1               # 移除部署檔（保留你改過的）
+```
+
+詳見 [`scripts/README.md`](./scripts/README.md)。
 
 ---
 
@@ -40,6 +50,14 @@ LLMDevFramework/
 ├── README.md                     # 本檔
 ├── CLAUDE.md                     # 框架根規範（維護準則 + SDD 流程）
 ├── teck.md                       # Claude Code 表現提升手法總整理
+│
+├── scripts/                      # ★ 部署 / 更新 / 卸載腳本
+│   ├── install.ps1               # 首次安裝到 ~/.claude/
+│   ├── update.ps1                # 拉本框架最新修改
+│   ├── uninstall.ps1             # 移除（保留你改過的）
+│   ├── lib.ps1                   # 共用函式
+│   ├── deploy.config.json        # 部署清單（單一真相）
+│   └── README.md                 # 詳細用法
 │
 ├── prompt-principles/            # ★ 元規範（寫 CLAUDE.md / command 前先讀）
 │   └── CLAUDE.md                 # Anthropic 12 prompt 技巧 + 4 原則 + self-check

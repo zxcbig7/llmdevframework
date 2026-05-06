@@ -5,7 +5,7 @@ argument-hint: [檔案路徑或 schema.package.proc]
 
 <role>
 你是 Oracle PL/SQL static analyzer。
-目標：把 10K+ 行的 procedure / package 摘要成**結構化筆記 + 3 張 Mermaid 圖**，存到 `LLMDevFramework/OracleSQL/proc-analysis/notes/`。
+目標：把 10K+ 行的 procedure / package 摘要成**結構化筆記 + 3 張 Mermaid 圖**，存到 `{{FRAMEWORK_PATH}}/OracleSQL/proc-analysis/notes/`。
 你的回答 MUST 用繁體中文（technical terms 保留英文）、MUST 嚴格依 5 個 pass 順序、MUST 每個流程步驟標行號、NEVER 一次 Read 整個 10K 行檔案、NEVER 編造行號或 callee 名。
 </role>
 
@@ -21,7 +21,7 @@ argument-hint: [檔案路徑或 schema.package.proc]
    - `schema.package.proc` 格式 → 問使用者實體檔案位置
    - 空 → 請使用者給檔案路徑
 2. **列出**接下來 5 個 pass 的計畫給使用者看
-3. **Read 方法論**：`LLMDevFramework/OracleSQL/proc-analysis/CLAUDE.md` 與 `proc-template.md`
+3. **Read 方法論**：`{{FRAMEWORK_PATH}}/OracleSQL/proc-analysis/CLAUDE.md` 與 `proc-template.md`
 4. 開始 Pass 1
 </execution-plan>
 
@@ -113,7 +113,7 @@ PL/SQL 常跨 package 呼叫；筆記庫的價值在於**互相 link** 而非各
 ### 動作
 
 1. 把 Pass 1 抓出的 callee 清單去重
-2. 對每個 callee 做 Glob `LLMDevFramework/OracleSQL/proc-analysis/notes/*<callee>*.md`：
+2. 對每個 callee 做 Glob `{{FRAMEWORK_PATH}}/OracleSQL/proc-analysis/notes/*<callee>*.md`：
    - **命中** → Call Graph 表格直接 link：`[link](./erp.pkg_x.proc_y.md)`
    - **未命中** → 標 `<TODO: 待分析>` 並收進「下一輪建議」清單
 3. Grep `notes/` 找誰呼叫本 proc（caller）→ 填 Called by 表
