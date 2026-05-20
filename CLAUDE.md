@@ -24,6 +24,7 @@ React & Typescript/     - React + TypeScript 前端開發規範
 .Net Web API/           - ASP.NET Core Web API 後端開發規範
 YAML Review/            - YAML review 規範（K8s、Helm、ArgoCD、GitHub Actions、Docker Compose）
 sdd/                    - Spec-Driven Development 方法論 + slash command + 規格模板
+karpathy-guidelines/    - Karpathy 四原則守則（Think Before Coding / Simplicity / Surgical / Goal-Driven）+ `/kg` slash command
 </file_map>
 
 <paved_path>
