@@ -2,12 +2,14 @@
 
 把 LLMDevFramework 的 slash commands 部署到 `~/.claude/`，讓所有專案都能用。
 
+> 🔒 **不能跑 `.ps1` 的環境**（execution policy 鎖死 / 公司禁止執行腳本）→ 改看 [MANUAL-INSTALL.md](./MANUAL-INSTALL.md)，純複製 + 全文取代即可，不需執行任何腳本。
+
 > ⚠️ **編碼注意**：本資料夾的 `.ps1` 檔為 **UTF-8 with BOM**。直接編輯後若用 Write tool 重存（無 BOM）→ Windows PowerShell 5.1 會解析失敗。修法：`$c = Get-Content <file> -Raw -Encoding UTF8; Set-Content <file> -Value $c -Encoding UTF8 -NoNewline`。
 
 ## 一鍵安裝
 
 ```powershell
-cd C:\Users\zxcbi\Desktop\MyDevWeb\LLMDevFramework\scripts
+cd C:\Users\zxcbi\Desktop\Projects\LLMDevFramework\scripts
 .\install.ps1
 ```
 

@@ -1,0 +1,26 @@
+# brand.yaml — Slide Builder brand kit
+# 複製到 <專案>/slides/<deck-slug>/brand.yaml 後填寫。
+# 留空的欄位會用底層 skill 的預設值。
+
+deck:
+  title: ""              # deck 標題（瀏覽器 tab / 封面）
+  audience: ""           # 受眾：企業客戶 / 工程團隊 / 投資人 / 學生...
+  scene: ""              # 場景：發布會 / 內部分享 / 提案 / 培訓 / demo day
+  duration_min: 20       # 分鐘，用來估頁數（15≈10頁 30≈20頁 45≈25-30頁）
+  language: zh-Hant      # zh-Hant | zh-Hans | en
+
+brand:
+  primary: "#1B1B1B"     # 主色 hex（pptx 直接套；HTML 僅作選色參考）
+  accent: "#2C5FF6"      # 強調色 hex
+  paper: "#FAFAF7"       # 底色 hex
+  font_heading: ""       # 標題字體（留空用 skill 預設）
+  font_body: ""          # 內文字體
+  logo: ""               # logo 路徑（相對 images/，如 images/logo.png）
+
+content:
+  must_include: []       # 必須出現的數據/訊息（如 ["Q3 營收 +32%", "三大新功能"]）
+  avoid: []              # 禁止出現的詞/內容（如 ["內部代號 Falcon", "未公開定價"]）
+
+output:
+  format: auto           # auto（依 routing 自動判斷）| pptx | html
+  theme_hint: ""         # 給 skill 的風格傾向：科技 / 人文 / 數據 / 極簡 / 雜誌風 / 瑞士風

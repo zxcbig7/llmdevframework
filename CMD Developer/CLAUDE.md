@@ -12,6 +12,8 @@ PowerShell 能寫的優先寫 PowerShell；`.bat` 只在「雙擊執行」「相
 - MUST 字串引號**只能用 `"`**（不認 `'`）—— Why: 單引號被視為一般字元
 - MUST 引用變數預設用 `"%var%"`（含路徑必加引號）—— Why: 空白 / 特殊字元會撕裂指令
 - MUST `for /f` 與 `if` 區塊內取變數用 `!var!`（delayed expansion）—— Why: `%var%` 在解析期就展開，迴圈裡會永遠拿初值
+- MUST `.bat` / `.cmd` 存檔用 **CRLF（`\r\n`）** 行尾 —— Why: LF-only 在 cmd.exe 執行時整份 script 會被視為一行，所有指令串成一條爆掉；跨平台傳輸（Git、WSL、Mac）最容易踩到
+- MUST 在 repo 根目錄 `.gitattributes` 加 `*.bat text eol=crlf` 與 `*.cmd text eol=crlf` —— Why: Git 預設會依 `core.autocrlf` 轉換，沒有明確設定就靠不住
 - MUST 寫含中文 `.bat` 存檔用 **UTF-8 with BOM** 或乾脆全 ANSI（cp950）—— Why: PS 5.1 預設 cp950 解 UTF-8 無 BOM 會亂碼
 - MUST script 結尾用 `endlocal` + `exit /b %errorlevel%`（非 `exit`）—— Why: 裸 `exit` 會關掉呼叫端 cmd 視窗
 - NEVER 用 `if errorlevel N`（這是「≥N」不是「==N」）—— ALWAYS 用 `if %errorlevel% equ N` 或 `if %errorlevel% neq 0`
@@ -153,6 +155,35 @@ powershell -NoProfile -Command "& { param($p) Write-Host $p }" -p "%~1"
 - 雙擊 `.bat` 執行時 `cwd` 是 script 目錄
 - 從別處 `call` 進來時 `cwd` 是呼叫者目錄
 - ALWAYS 用 `pushd "%~dp0"` 鎖死，結束 `popd`
+
+### 雷區 9：CRLF vs LF（跨平台傳輸）
+
+❌ Bad：在 Mac/Linux 編輯後存成 LF，傳到 Windows 執行
+
+```text
+@echo off^Msetlocal^M...   ← cmd.exe 看到的是一行
+```
+
+結果：第一個指令後面的全部被當參數，或直接報「找不到指令」。
+
+✅ Fix：
+
+```ini
+# .gitattributes
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+```
+
+VS Code 手動轉：右下角點 `LF` → 選 `CRLF`，或 `Ctrl+Shift+P` → `Change End of Line Sequence`。
+
+PowerShell 批次轉（目錄內所有 .bat）：
+
+```powershell
+Get-ChildItem -Recurse -Filter *.bat | ForEach-Object {
+    $content = Get-Content $_.FullName -Raw
+    $content -replace "`r?`n", "`r`n" | Set-Content $_.FullName -NoNewline
+}
+```
 
 ### 雷區 8：`if defined` vs `if "%var%"==""`
 ```bat
