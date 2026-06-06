@@ -208,7 +208,7 @@ rem 比 if "%VAR%"=="" 更穩（後者遇空格 / 特殊字元會炸）
 
 <hatch>
 - 一次性指令（沒人會再讀）→ 寫 PS one-liner 就好，別開 .bat
-- 跨平台需求 → 改寫 `.ps1` + pwsh（PS 7）；.bat 不可移植
+- 跨平台需求 / 物件處理 / REST → 改寫 `.ps1`（`.bat` vs `.ps1` 選用決策見 `PowerShell/CLAUDE.md` `<selection_guide>`）；.bat 不可移植
 - 互動式 prompt（讀 user input）→ `set /p var=請輸入: ` 但要記得 `setlocal EnableDelayedExpansion`
 </hatch>
 

@@ -66,6 +66,22 @@ modules: [llmdevframework]
 - **不覆蓋既有 CLAUDE.md**：偵測到就跳過或詢問
 - per-project CLAUDE.md 一律 **reference 指回框架**，框架一改全專案同步（DRY）
 
+### 實作結果（2026-06-06 · 大部分 shipped）
+
+**✅ 已上線**
+- Router 區塊注入 `~/.claude/CLAUDE.md`（marker 包夾、append、不動既有 Vic's Global Preferences）→ **自動 dispatch 生效**
+- `/scaffold`、`/cmd-dev`、`/kg` 裝進 `~/.claude/commands/`（deploy.config 已登錄 `cmd-kg`、`cmd-scaffold`）
+- 修好 4 個既有指令 stale 路徑：`sdd`/`k8s-review`/`prompt-improve`/`proc-analyze` 從 `MyDevWeb` → `Projects`
+- `router/` source 五件套（CLAUDE.md、global-claude-block、scaffold-command、project/subfolder 模板）
+
+**⚠️ 與原規劃差異（誠實記錄）**
+- **未整包 copy 進 `~/.claude/llmdevframework/`**：bulk copy 被 permission 擋下，且複製會製造 source-of-truth drift。改為 **Router 直接指向實際框架 `C:/Users/zxcbi/Desktop/Projects/LLMDevFramework`** → 達成自動 dispatch 目標 + 維持單一真相。要真正可攜（換電腦）再用 `install.ps1` 搬整包並 repoint。
+
+**⏳ 待補（非阻塞）**
+- `scripts/lib.ps1` 自動化：tree-copy + Router 注入 transform（本輪手動執行）
+- `deploy.config.json` 的 `type: skill`（mermaid-diagrams / slide-builder 仍需手動裝）
+- `write-tutorial`/`research-note`/`code-review` 三個無 source 指令的去留決議
+
 ### 路由表（涵蓋現有 + 待建）
 
 | 偵測訊號 | 路由到 |
@@ -77,6 +93,26 @@ modules: [llmdevframework]
 | `.cs` + `.csproj` | `.Net Web API/CLAUDE.md` |
 | `.yaml`（k8s/helm/argo/gha） | `YAML Review/CLAUDE.md` |
 | `.mmd` / mermaid | `Mermaid Diagrams/` skill |
+
+### Dispatch 擴充：任務 → skill（不只語言 → domain）
+
+Router 不只「副檔名 → domain」，也涵蓋「任務情境 → 該用哪個 skill/command」，由 Claude **主動判斷套用**，
+不要求使用者手動挑。行為規則（寫進全域 `~/.claude/CLAUDE.md`）：
+
+> **主動 dispatch**：偵測到對應情境就自套對的 skill/domain，並在回覆用一句話說「用了什麼、為什麼」；
+> 只有「真正分岔且影響大」（架構選型、會動既有 code、有外部副作用、approve production 變更）才問使用者，其餘自行決定。
+
+任務 → skill 對照（節錄）：
+
+| 情境 | 自動套用 |
+|---|---|
+| 非 trivial 新功能 | `/sdd` |
+| 任務模糊 / 編碼前 | `/kg` pre-flight |
+| 「看 code / review」 | `code-review`（先產 CodeMap） |
+| 10K+ 行 PL/SQL | `/proc-analyze` |
+| 改 K8s/Helm/ArgoCD/GHA yaml | `/k8s-review` |
+| 要畫圖 | `mermaid-diagrams`（待裝） |
+| 做投影片 / 網頁 deck | `guizang-ppt-skill` |
 
 ### Deliverables
 

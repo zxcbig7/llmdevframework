@@ -42,6 +42,22 @@
       "dst": "commands/cmd-dev.md",
       "transform": "substitute-framework-path",
       "description": "/cmd-dev — Windows .bat 寫 / review / debug 三合一"
+    },
+    {
+      "id": "cmd-kg",
+      "type": "command",
+      "src": "karpathy-guidelines/karpathy-guidelines-command.md",
+      "dst": "commands/kg.md",
+      "transform": "substitute-framework-path",
+      "description": "/kg — Karpathy 四原則 pre-flight"
+    },
+    {
+      "id": "cmd-scaffold",
+      "type": "command",
+      "src": "router/scaffold-command.md",
+      "dst": "commands/scaffold.md",
+      "transform": "substitute-framework-path",
+      "description": "/scaffold — 半自動產生專案 CLAUDE.md（reference 框架）"
     }
   ]
 }

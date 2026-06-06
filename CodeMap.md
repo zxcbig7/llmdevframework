@@ -9,7 +9,7 @@ type: framework-map
 
 | Domain | CLAUDE.md 路徑 | 行數 | 核心職責 | Slash Command |
 |--------|---------------|------|---------|---------------|
-| root | `CLAUDE.md` | 95 | SDD workflow + meta rules + 目錄導覽 | — |
+| root | `CLAUDE.md` | 97 | SDD workflow + meta rules + 目錄導覽（file_map 補 CMD Developer + PowerShell）| — |
 | prompt-principles | `prompt-principles/CLAUDE.md` | 212 | 12 prompt 技巧 + self-check checklist | — |
 | Prompt Builder | `Prompt Builder/CLAUDE.md` | 310 | 使用者寫 prompt 工具箱（框架選用 + 6 品質維度）| `/prompt-improve` |
 | OracleSQL | `OracleSQL/CLAUDE.md` | 121 | Oracle SQL/PL/SQL 規範（schema、package、bulk DML）| — |
@@ -22,6 +22,8 @@ type: framework-map
 | sdd | `sdd/CLAUDE.md` | 93 | Spec-Driven Development（規格 → stub → 實作）| `/sdd` |
 | karpathy-guidelines | `karpathy-guidelines/CLAUDE.md` | 137 | 四原則 pre-flight（Think/Simplicity/Surgical/Goal）| `/kg` |
 | CMD Developer | `CMD Developer/CLAUDE.md` | 222 | Windows batch `.bat` 規範 + 9 大雷區 | `/cmd-dev` |
+| PowerShell | `PowerShell/CLAUDE.md` | ~155 | PowerShell `.ps1` 規範（編碼/BOM、CRLF、5.1 vs 7+、錯誤處理）+ `.bat` vs `.ps1` 選用決策 | —（Router 自動路由）|
+| router | `router/CLAUDE.md` | ~40 | 自適應分派層：`global-claude-block` 注入全域 CLAUDE.md + `/scaffold` + 模板 | `/scaffold` |
 | Slide Builder | `Slide Builder/CLAUDE.md` | 74 | 投影片 orchestrator：路由 pptx / guizang HTML + brand kit | slide-builder skill |
 | Mermaid Diagrams | `Mermaid Diagrams/CLAUDE.md` | 103 | 專業 Mermaid 製圖：base theme + 語義 classDef 美化、語法防呆、mmdc/Kroki 匯出 | mermaid-diagrams skill |
 
@@ -43,6 +45,8 @@ graph TD
   SDD["sdd/<br/>Spec-Driven Dev"]
   KG["karpathy-guidelines/<br/>四原則 pre-flight"]
   CMD["CMD Developer/<br/>Windows batch"]
+  PS["PowerShell/<br/>.ps1 規範 + 選用決策"]
+  RTR["router/<br/>自適應分派 + /scaffold"]
   SB["Slide Builder/<br/>投影片 orchestrator"]
   MD["Mermaid Diagrams/<br/>專業製圖 + classDef 美化"]
   GZ["~/.claude/skills/<br/>guizang + pptx（被路由）"]
@@ -58,6 +62,10 @@ graph TD
   ROOT --> KG
   ROOT --> PB
   ROOT --> CMD
+  ROOT --> PS
+  PS -.->|"選用決策 / cross-ref"| CMD
+  ROOT --> RTR
+  RTR -.->|"注入全域 CLAUDE.md → 自動讀各 domain"| ROOT
   ROOT --> SB
   ROOT --> MD
   ROOT -->|"改動後更新"| CM
@@ -97,7 +105,9 @@ graph TD
 | .Net Web API | ⚠️ 可補 | 缺 integration test pattern（WebApplicationFactory 用法）|
 | YAML Review | ✅ 完整 | troubleshooting case 數靠 on-call 補，無 SLA 可能落後 |
 | Prompt Builder | ✅ 完整 | 框架選擇決策樹豐富；LLM 判斷 prompt 品質的範例相對薄 |
-| CMD Developer | ✅ 完整 | Windows-only；跨平台腳本需求需另開 PowerShell 規範 |
+| CMD Developer | ✅ 完整 | Windows-only；`.ps1` / 跨平台 → 見 PowerShell domain（已建）|
+| PowerShell | ✅ 完整 | 純規範；靠 router 注入全域 CLAUDE.md 自動套用 `.ps1` |
+| router | ✅ 完整（本輪 ship）| Router 區塊已注入 `~/.claude/CLAUDE.md`、`/scaffold` 已裝；整包已 copy 進 `~/.claude/llmdevframework/`。scripts 自動化重灌（tree-copy + 注入 transform）待補，本輪手動執行 |
 | Slide Builder | ⚠️ 待裝 | pptx skill 尚未安裝（需自 anthropics/skills 複製）；HTML 路由 guizang 已就緒 |
 | Mermaid Diagrams | ✅ 完整 | mmdc 匯出需本機 Node；無 Node 走 Kroki（敏感圖勿送公開 Kroki，改自架） |
 | YAML/troubleshooting | ⚠️ 薄 | Case 數量不明，建議定期盤點 |
